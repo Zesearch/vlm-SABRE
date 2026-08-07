@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlm-benchmark-pipeline"
+version = "0.0.1"
+description = "General VLM benchmark data-generation, repair, authoring, and evaluation tools."
+requires-python = ">=3.10"
+dependencies = [
+  "pillow",
+  "tqdm",
+  "google-genai",
+  "openai>=2.15.0",
+  "pydantic>=2.12.0",
+]
+
+[project.optional-dependencies]
+agent = [
+  "openai-codex",
+]
+
+[project.scripts]
+vlmbench-agent = "vlmbench.agent.cli:main"
+vlmbench-design = "vlmbench.pipeline.design:main"
+vlmbench-images = "vlmbench.pipeline.images:main"
+vlmbench-screen = "vlmbench.pipeline.screen:main"
+vlmbench-campaign = "vlmbench.campaign.cli:main"
+vlmbench-review = "vlmbench.web.authoring_app.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"vlmbench.agent" = ["templates/*.md", "templates/*.py"]

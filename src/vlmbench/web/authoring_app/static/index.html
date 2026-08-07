@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benchmark Review Platform</title>
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("vlmbench-review-theme");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          document.documentElement.dataset.theme = savedTheme;
+        }
+      } catch (_error) {
+        // Storage can be unavailable in privacy-restricted browser contexts.
+      }
+    })();
+
+    async function exportCurrentPagePdf() {
+      const body = document.body;
+      const pageStyle = document.getElementById("dynamic-pdf-page") || document.createElement("style");
+      pageStyle.id = "dynamic-pdf-page";
+      document.head.appendChild(pageStyle);
+      body.classList.add("pdf-exporting");
+
+      if (document.fonts?.ready) await document.fonts.ready;
+      const visibleImages = [...document.images].filter(
+        (image) => image.getClientRects().length > 0
+      );
+      await Promise.all(
+        visibleImages.map(
+          (image) => image.complete
+            ? Promise.resolve()
+            : new Promise((resolve) => {
+                image.addEventListener("load", resolve, { once: true });
+                image.addEventListener("error", resolve, { once: true });
+              })
+        )
+      );
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const widthPx = Math.max(document.documentElement.scrollWidth, body.scrollWidth);
+      const heightPx = Math.max(document.documentElement.scrollHeight, body.scrollHeight);
+      const mmPerPx = 25.4 / 96;
+      const marginMm = 8;
+      const widthSafetyMm = 3;
+      const printReflowSafety = 1.08;
+      const pageWidthMm = widthPx * mmPerPx + marginMm * 2 + widthSafetyMm;
+      const pageHeightMm = heightPx * mmPerPx * printReflowSafety + marginMm * 2;
+      pageStyle.textContent = `@page { size: ${pageWidthMm.toFixed(2)}mm ${pageHeightMm.toFixed(2)}mm; margin: ${marginMm}mm; }`;
+
+      const cleanup = () => {
+        body.classList.remove("pdf-exporting");
+        pageStyle.remove();
+      };
+      window.addEventListener("afterprint", cleanup, { once: true });
+      window.print();
+    }
+  </script>
+  <link rel="stylesheet" href="/static/styles.css?v=authoring-upload-1">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Context Repair Review</h1>
+      <div id="summary">Loading...</div>
+      <nav class="mode-tabs" aria-label="Tool mode">
+        <button class="mode-tab active" data-mode="review">Review</button>
+        <button class="mode-tab" data-mode="repair">Patch Repair</button>
+        <button class="mode-tab" data-mode="author">Author Real Data</button>
+      </nav>
+    </div>
+    <div class="toolbar">
+      <label>Filter
+        <select id="filter">
+          <option value="all">All pairs</option>
+          <option value="context_prior_failure">Context-prior failure core</option>
+          <option value="hard_human_valid">Additional hard human-valid</option>
+          <option value="unreviewed">Unreviewed</option>
+          <option value="keep">Kept</option>
+          <option value="needs_repair">Needs repair</option>
+          <option value="reject">Rejected</option>
+        </select>
+      </label>
+      <button id="prev">← Previous</button>
+      <input id="jump" type="number" min="1" aria-label="Jump to item">
+      <button id="next">Next →</button>
+      <button id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">Theme: Dark</button>
+      <button id="export-pdf" type="button" onclick="exportCurrentPagePdf()">Export PDF</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="meta panel" data-view="review repair">
+      <div class="meta-title">
+        <h2 id="item-title"></h2>
+        <span id="priority" class="badge"></span>
+        <span id="save-state"></span>
+      </div>
+      <div class="entity-flow">
+        <strong id="source-entity"></strong>
+        <span>→</span>
+        <strong id="target-entity"></strong>
+      </div>
+      <dl>
+        <dt>Review location</dt><dd id="review-location"></dd>
+        <dt>Local cluster</dt><dd id="cluster"></dd>
+        <dt>Edited visual cues</dt><dd id="target-strategy"></dd>
+        <dt>Human verifiability</dt><dd id="verifiability"></dd>
+      </dl>
+    </section>
+
+    <section class="authoring panel" data-view="author">
+      <div class="authoring-header">
+        <div>
+          <h3>Author real-image validation data</h3>
+          <p class="hint" id="authoring-roots"></p>
+        </div>
+        <span id="authoring-state"></span>
+      </div>
+      <div class="authoring-nav">
+        <button id="author-upload-trigger" type="button">Upload real images</button>
+        <input id="author-upload-files" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
+        <button id="author-prev">← Previous image</button>
+        <input id="author-jump" type="number" min="1" aria-label="Jump to authoring image">
+        <button id="author-next">Next image →</button>
+        <button id="author-export">Export JSONL</button>
+      </div>
+    </section>
+
+    <section class="authoring-images" data-view="author">
+      <article class="image-card">
+        <h3>Real base image <small>Draw source entity box</small></h3>
+        <div class="image-stage" id="author-base-stage">
+          <img id="author-base-image" draggable="false" alt="Authoring base image">
+          <div class="selection-box" id="author-base-box"></div>
+        </div>
+        <button id="author-clear-box" class="clear-box">Clear Source box</button>
+        <div id="author-base-state" class="image-state"></div>
+      </article>
+      <article class="image-card">
+        <h3>Edited candidate <small>Run remove/swap, then save item</small></h3>
+        <div class="image-stage preview-stage">
+          <img id="author-preview-image" draggable="false" alt="Authoring edit preview">
+          <div id="author-preview-empty" class="preview-empty">No edited candidate yet</div>
+        </div>
+        <div id="author-preview-state" class="image-state"></div>
+      </article>
+    </section>
+
+    <section class="authoring-form panel" data-view="author">
+      <div class="authoring-grid">
+        <label>Item id
+          <input id="author-id" placeholder="real_001">
+        </label>
+        <label>Edit type
+          <select id="author-edit-type">
+            <option value="swap_entity">Swap entity</option>
+            <option value="remove_entity">Remove entity</option>
+          </select>
+        </label>
+        <label>Gemini model
+          <input id="author-model" value="gemini-3.1-flash-image-preview">
+        </label>
+      </div>
+      <div class="authoring-grid">
+        <label>Source entity
+          <input id="author-source" placeholder="Example: red mug">
+        </label>
+        <label>Target entity
+          <input id="author-target" placeholder="Example: blue stapler">
+        </label>
+        <label>Scene description
+          <input id="author-scene" placeholder="Example: cluttered office desk with laptop and papers">
+        </label>
+      </div>
+      <label>Review location
+        <input id="author-location" placeholder="Optional: where the source is located in the image">
+      </label>
+      <label>Edit instruction
+        <textarea id="author-prompt" rows="3" placeholder="Optional: extra instruction for the edit."></textarea>
+      </label>
+      <div class="repair-actions">
+        <button id="author-run-edit">Run edit</button>
+        <button id="author-save-item">Save item</button>
+        <button id="author-default-questions">Reset default Q1-Q4</button>
+        <button id="author-add-question">Add question</button>
+      </div>
+      <div class="table-wrap author-questions-wrap">
+        <table>
+          <thead><tr><th>Probe</th><th>Image</th><th>Type</th><th>Question</th><th>Answer</th><th>Eval</th><th></th></tr></thead>
+          <tbody id="author-question-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="upload panel" data-view="repair">
+      <div class="upload-row">
+        <label>Upload image for free repair
+          <input id="upload-repair-file" type="file" accept="image/*">
+        </label>
+        <button id="use-benchmark-repair">Use current benchmark image</button>
+        <span id="upload-state"></span>
+      </div>
+    </section>
+
+    <section class="images" data-view="review">
+      <article class="image-card">
+        <h3>Base: mark the source entity <small>Drag a box or click for a default box</small></h3>
+        <div class="image-stage" id="base-stage">
+          <img id="base-image" draggable="false" alt="Base image">
+          <div class="selection-box" id="base-box"></div>
+        </div>
+        <button class="clear-box" data-kind="base">Clear Base box</button>
+      </article>
+      <article class="image-card">
+        <h3>Edited: mark the inserted entity or repair region <small>Drag a box or click for a default box</small></h3>
+        <div class="image-stage" id="edited-stage">
+          <img id="edited-image" draggable="false" alt="Edited image">
+          <div class="selection-box edited" id="edited-box"></div>
+        </div>
+        <button class="clear-box" data-kind="edited">Clear Edited box</button>
+        <div id="edited-source-state" class="image-state"></div>
+      </article>
+    </section>
+
+    <section class="repair-images" data-view="repair">
+      <article class="image-card">
+        <h3>Current edited image <small>Draw the repair box here</small></h3>
+        <div class="image-stage" id="repair-edited-stage">
+          <img id="repair-current-image" draggable="false" alt="Current edited image">
+          <div class="selection-box edited" id="repair-edited-box"></div>
+        </div>
+        <button class="clear-box" data-kind="edited">Clear Repair box</button>
+        <div id="repair-current-state" class="image-state"></div>
+      </article>
+      <article class="image-card">
+        <h3>Repair preview <small>Appears after running patch repair</small></h3>
+        <div class="image-stage preview-stage">
+          <img id="repair-preview-image" draggable="false" alt="Repair preview">
+          <div id="repair-preview-empty" class="preview-empty">No repair preview yet</div>
+        </div>
+        <div id="repair-preview-state" class="image-state"></div>
+      </article>
+    </section>
+
+    <section class="repair panel" data-view="repair">
+      <div class="repair-header">
+        <div>
+          <h3>Repair edited image</h3>
+          <p class="hint">Draw a box on the Edited image around the residual entity, replacement target, or local artifact. Repair only that marked region, then re-review the repaired image before keeping it.</p>
+        </div>
+        <span id="repair-state"></span>
+      </div>
+      <div class="repair-grid">
+        <label>Repair type
+          <select id="repair-type">
+            <option value="remove_entity">Remove entity</option>
+            <option value="swap_entity">Swap entity</option>
+            <option value="clean_artifact">Clean local artifact</option>
+            <option value="restore_background">Restore background</option>
+          </select>
+        </label>
+        <label>Engine
+          <select id="repair-engine">
+            <option value="gemini_patch">Gemini local patch repair</option>
+          </select>
+        </label>
+        <label>Gemini model
+          <input id="repair-model" value="gemini-3.1-flash-image-preview">
+        </label>
+      </div>
+      <label>Entity to remove
+        <input id="repair-entity" placeholder="Example: tape roll, PTFE tape roll, extra dental floss dispenser">
+      </label>
+      <div class="swap-grid" id="swap-fields">
+        <label>Source entity
+          <input id="repair-source-entity" placeholder="Example: green tape roll">
+        </label>
+        <label>Target entity
+          <input id="repair-target-entity" placeholder="Example: red apple">
+        </label>
+      </div>
+      <label>Repair instruction
+        <textarea id="repair-prompt" rows="3" placeholder="Example: Remove the remaining PTFE tape roll inside the marked region. Fill with matching workbench clutter/background. Do not change the dental floss dispenser."></textarea>
+      </label>
+      <div class="repair-actions">
+        <button id="repair-run">Run local repair</button>
+        <button id="repair-accept">Accept repaired image</button>
+        <button id="repair-reset">Use original edited image</button>
+      </div>
+    </section>
+
+    <section class="decision panel" data-view="review">
+      <h3>Decision</h3>
+      <div class="decision-buttons">
+        <button data-status="keep" class="keep">Keep</button>
+        <button data-status="needs_repair" class="needs-repair">Needs repair</button>
+        <div class="reject-control">
+          <button id="reject-toggle" class="reject-toggle" type="button" aria-expanded="false" aria-controls="reject-reasons">
+            Reject <span aria-hidden="true">⌄</span>
+          </button>
+          <div id="reject-reasons" class="reject-reasons" hidden>
+            <span>Reject reason</span>
+            <button data-status="reject_edit_failed">Edit failed</button>
+            <button data-status="reject_base_invalid">Base invalid</button>
+          </div>
+        </div>
+        <button data-status="unsure" class="unsure">Unsure</button>
+      </div>
+      <label>Notes
+        <textarea id="notes" rows="3" placeholder="Optional: ambiguity, inaccurate box, or rejection reason"></textarea>
+      </label>
+      <div class="annotation-actions">
+        <button id="save">Save current annotation</button>
+        <button id="export-boxed-images">Export Boxed Images</button>
+        <span id="boxed-export-state"></span>
+      </div>
+      <p class="hint">Keyboard shortcuts: A keep, R needs repair, X reject · edit failed, B reject · base invalid, U unsure, ←/→ navigate.</p>
+    </section>
+
+    <section class="probes panel" data-view="review repair">
+      <div class="question-editor-header">
+        <div>
+          <h3>Questions and answers</h3>
+          <p class="hint">Editable benchmark content. The model prediction and result are the historical filter-gate record.</p>
+        </div>
+        <div class="question-editor-actions">
+          <span id="question-save-state"></span>
+          <button id="save-questions">Save questions</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Probe</th><th>Question</th><th>Answer</th><th>Filter prediction</th><th>Filter result</th></tr></thead>
+          <tbody id="probe-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="/static/app.js?v=authoring-upload-1"></script>
+</body>
+</html>

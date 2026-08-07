@@ -1,0 +1,15 @@
+{
+  "openai": {
+    "base_url": "https://api.openai.com/v1",
+    "agent_model": "gpt-5.6-sol",
+    "design_model": "gpt-5.6-terra"
+  },
+  "agent": {
+    "reasoning_effort": "medium",
+    "max_clarification_rounds": 2
+  },
+  "design_generation": {
+    "attempts_per_design": 3,
+    "max_output_tokens": 24000
+  }
+}

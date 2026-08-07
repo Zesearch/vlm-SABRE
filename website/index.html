@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <title>Meet VLM-Bench</title>
+    <link rel="stylesheet" href="./styles.css?v=browser-repair-2">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#meet" aria-label="Meet VLM-Bench home">
+        <span class="brand-mark"></span>
+        <span>VLM-Bench</span>
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="#meet">Meet VLM-Bench</a>
+        <div class="nav-menu">
+          <button class="nav-menu-button" type="button" aria-haspopup="true" aria-expanded="false">
+            Data Platform
+            <span aria-hidden="true">⌄</span>
+          </button>
+          <div class="mega-menu" aria-label="Data Platform menu">
+            <div class="mega-column">
+              <span class="mega-label">Build benchmark data</span>
+              <a href="#platform">Overview</a>
+              <a href="#generation-pipeline">Workflow Overview</a>
+              <a href="#annotation-tool">Annotation &amp; Verification</a>
+              <a href="#entity-removal">Entity Removal</a>
+              <a href="#entity-swap">Entity Swap</a>
+              <a href="#repair-demo">Try Repair Demo</a>
+            </div>
+          </div>
+        </div>
+        <a href="https://github.com/Zesearch/vlm-SABRE" target="_blank" rel="noreferrer">Code</a>
+        <a href="https://arxiv.org/" target="_blank" rel="noreferrer">Paper</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="meet">
+        <div class="hero-copy">
+          <p class="eyebrow">General VLM benchmark data pipeline</p>
+          <h1>Build visual benchmarks that really test models.</h1>
+          <p class="hero-text">
+            A reusable pipeline for building controlled visual edits, repairing
+            local artifacts, authoring real-image probes, and evaluating whether
+            VLMs can answer correctly when we test visual evidence.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#platform">Open Data Platform</a>
+            <a class="button secondary" href="#performance">View Performance</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="VLM-Bench platform preview">
+          <div class="pipeline-visual">
+            <div class="pipeline-orbit" aria-hidden="true"></div>
+            <div class="stage-card stage-generate">
+              <span class="stage-label">Generate</span>
+              <div class="mini-image source-image">
+                <span class="sun"></span>
+                <span class="subject"></span>
+                <span class="surface"></span>
+              </div>
+            </div>
+
+            <div class="stage-card stage-edit">
+              <span class="stage-label">Edit</span>
+              <div class="mini-image edited-image">
+                <span class="subject faded"></span>
+                <span class="patch-box"></span>
+                <span class="surface"></span>
+              </div>
+            </div>
+
+            <div class="stage-card stage-screen">
+              <span class="stage-label">Model Test</span>
+              <div class="screening-list">
+                <span><b></b> auto-check</span>
+                <span><b></b> easy sample rejected</span>
+                <span><b></b> hard case kept</span>
+              </div>
+            </div>
+
+            <div class="stage-card stage-review">
+              <span class="stage-label">Human Review</span>
+              <div class="review-checks">
+                <span>manual verification</span>
+                <span>box annotation</span>
+                <span>image repair</span>
+              </div>
+            </div>
+
+            <div class="stage-card stage-benchmark">
+              <span class="stage-label">VLM Benchmark</span>
+              <div class="benchmark-mark" aria-hidden="true">
+                <span class="mark-image"></span>
+                <span class="mark-image edited"></span>
+                <span class="mark-question"></span>
+                <span class="mark-score"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sample-helix-section" id="examples" aria-label="Generated sample showcase">
+        <div class="sample-helix" aria-hidden="true">
+          <span class="helix-particle p1"></span>
+          <span class="helix-particle p2"></span>
+          <span class="helix-particle p3"></span>
+          <span class="helix-particle p4"></span>
+          <span class="helix-particle p5"></span>
+          <span class="helix-particle p6"></span>
+          <div class="sample-card s1"><img src="./assets/examples/sample_01.jpg" alt="Generated benchmark sample 1"></div>
+          <div class="sample-card s2"><img src="./assets/examples/sample_02.jpg" alt="Generated benchmark sample 2"></div>
+          <div class="sample-card s3"><img src="./assets/examples/sample_03.jpg" alt="Generated benchmark sample 3"></div>
+          <div class="sample-card s4"><img src="./assets/examples/sample_04.jpg" alt="Generated benchmark sample 4"></div>
+          <div class="sample-card s5"><img src="./assets/examples/sample_05.jpg" alt="Generated benchmark sample 5"></div>
+          <div class="sample-card s6"><img src="./assets/examples/sample_06.jpg" alt="Generated benchmark sample 6"></div>
+          <div class="sample-card s7"><img src="./assets/examples/sample_07.jpg" alt="Generated benchmark sample 7"></div>
+          <div class="sample-card s8"><img src="./assets/examples/sample_08.jpg" alt="Generated benchmark sample 8"></div>
+          <div class="sample-card s9"><img src="./assets/examples/sample_09.jpg" alt="Generated benchmark sample 9"></div>
+          <div class="sample-card s10"><img src="./assets/examples/sample_10.jpg" alt="Generated benchmark sample 10"></div>
+          <div class="sample-card s11"><img src="./assets/examples/sample_11.jpg" alt="Generated benchmark sample 11"></div>
+          <div class="sample-card s12"><img src="./assets/examples/sample_12.jpg" alt="Generated benchmark sample 12"></div>
+          <div class="sample-card s13"><img src="./assets/examples/sample_13.jpg" alt="Generated benchmark sample 13"></div>
+          <div class="sample-card s14"><img src="./assets/examples/sample_14.jpg" alt="Generated benchmark sample 14"></div>
+          <div class="sample-card s15"><img src="./assets/examples/sample_15.jpg" alt="Generated benchmark sample 15"></div>
+        </div>
+      </section>
+
+      <section class="paper-section" id="paper">
+        <div class="paper-inner">
+          <h2>SABRE: Scalable and Automated Benchmarking of VLMs under Stress</h2>
+          <p class="paper-authors">Zixuan Lan · Luzhe Sun · Matthew R. Walter · Jiawei Zhou</p>
+          <p class="paper-affiliations">
+            University of Chicago · Toyota Technological Institute at Chicago · Stony Brook University
+          </p>
+          <h3>Abstract</h3>
+          <p class="paper-abstract">
+            Vision-language models (VLMs) are improving rapidly, but benchmark
+            development lags behind, making weaknesses hard to identify. Building
+            stress tests is costly: samples must satisfy controlled conditions,
+            remain answerable, and challenge current models. We present SABRE, a
+            scalable, automated pipeline that converts a Test Primer (a Markdown
+            Task Design with Data Schema) into structured specifications, generated
+            or edited images, and question–answer pairs. Automated filtering removes
+            candidates solved by a Filtering VLM, while human review verifies
+            candidate validity and supports annotation correction and localized
+            image repair. We instantiate SABRE-Prior to test whether VLMs follow
+            visual evidence instead of relying on world priors—learned expectations
+            about familiar objects and scenes. Its 600 images and 1,000 questions
+            span Context (unexpected entities in familiar scenes), Texture
+            (counterfactual materials), Attribute (non-canonical component counts),
+            and Language Elicitation (answers suggested by language but unsupported
+            by the image). Across six VLMs, macro-average accuracy ranges from 17.8%
+            to 31.3% (22.6% mean). A real-image Attribute control is comparably
+            difficult for the Filtering VLM. SABRE-Counting and SABRE-Spatial pilots
+            show that the workflow supports other stress-test settings. These results
+            establish SABRE as a reusable framework for constructing and refreshing
+            VLM stress tests rather than a single fixed benchmark.
+          </p>
+        </div>
+      </section>
+
+      <section class="section band" id="platform">
+        <div class="section-heading platform-overview-heading">
+          <h2>SABRE in Action</h2>
+          <p>From automated benchmark construction to human verification and localized image repair.</p>
+        </div>
+
+        <div class="platform-actions platform-overview-grid" aria-label="SABRE workflow demonstrations">
+          <a class="platform-button" href="../src/vlmbench/web/authoring_app/static/index.html">
+            <span>01</span>
+            <strong>
+              Workflow Overview
+            </strong>
+            <em>End-to-end construction</em>
+          </a>
+          <a class="platform-button" href="../src/vlmbench/web/authoring_app/static/index.html">
+            <span>02</span>
+            <strong>
+              Annotation &amp; Verification
+            </strong>
+            <em>Human review and correction</em>
+          </a>
+          <a class="platform-button" href="../src/vlmbench/web/authoring_app/static/index.html">
+            <span>03</span>
+            <strong>
+              Entity Removal
+            </strong>
+            <em>Localized image repair</em>
+          </a>
+          <a class="platform-button" href="../src/vlmbench/web/authoring_app/static/index.html">
+            <span>04</span>
+            <strong>
+              Entity Swap
+            </strong>
+            <em>Controlled replacement</em>
+          </a>
+        </div>
+      </section>
+
+      <section class="component-section" id="generation-pipeline">
+        <div class="component-copy">
+          <span class="component-index">01</span>
+          <h2>Workflow Overview</h2>
+          <p>From a Test Primer to structured candidates, automated filtering, and human-verified VLM stress tests.</p>
+        </div>
+        <div class="component-media figure-slot pipeline-figure">
+          <div
+            class="pipeline-diagram"
+            role="group"
+            aria-label="SABRE workflow from a Test Primer through structured sample construction, stress-candidate generation, automated filtering, human verification, and VLM stress testing"
+          >
+            <div class="pipeline-diagram-header">
+              <div>
+                <span class="pipeline-kicker">SABRE workflow</span>
+                <strong>From Test Primer to verified stress test</strong>
+              </div>
+              <span class="pipeline-mode">Scalable · Automated</span>
+            </div>
+
+            <div class="pipeline-flow" aria-hidden="true">
+              <article class="pipeline-stage primer-stage">
+                <div class="pipeline-stage-heading">
+                  <span>01</span>
+                  <strong>Test Primer</strong>
+                </div>
+                <div class="primer-documents">
+                  <div class="primer-document design-document">
+                    <b>MD</b>
+                    <span>Task Design</span>
+                  </div>
+                  <div class="primer-document schema-document">
+                    <b>{ }</b>
+                    <span>Data Schema</span>
+                  </div>
+                </div>
+                <div class="primer-definition">
+                  <span class="primer-merge-mark"><i></i><b>+</b><i></i></span>
+                  <div>
+                    <small>Canonical test contract</small>
+                    <b>What to test · how to build · how to score</b>
+                  </div>
+                </div>
+                <div class="primer-contract">
+                  <span>Question format</span>
+                  <span>Area of interest</span>
+                  <span>Edit plan</span>
+                </div>
+              </article>
+
+              <span class="pipeline-connector"><i></i></span>
+
+              <article class="pipeline-stage construct-stage">
+                <div class="pipeline-stage-heading">
+                  <span>02</span>
+                  <strong>Compile &amp; Construct</strong>
+                </div>
+                <div class="agent-compiler">
+                  <span class="agent-orbit"><i></i></span>
+                  <div>
+                    <b>Agent compiler</b>
+                    <small>Structured sample specifications</small>
+                  </div>
+                </div>
+                <div class="construction-branches">
+                  <div>
+                    <span class="branch-icon qa-icon">Q/A</span>
+                    <span class="branch-preview qa-preview">
+                      <i>Q1</i><b>A1</b><i>Q2</i><b>A2</b>
+                    </span>
+                    <b>Q&amp;A Builder</b>
+                    <small>Questions · references · evaluators</small>
+                  </div>
+                  <div>
+                    <span class="branch-icon image-icon"><i></i></span>
+                    <span class="branch-preview image-preview">
+                      <i>Base</i><b>→</b><i>Edited</i>
+                    </span>
+                    <b>Generate &amp; Edit</b>
+                    <small>Base · edit · repair</small>
+                  </div>
+                </div>
+              </article>
+
+              <span class="pipeline-connector"><i></i></span>
+
+              <article class="pipeline-stage candidate-stage">
+                <div class="pipeline-stage-heading">
+                  <span>03</span>
+                  <strong>Stress Candidates</strong>
+                </div>
+                <div class="candidate-pair">
+                  <div class="candidate-image base-candidate">
+                    <span>Base</span>
+                    <i class="candidate-object"></i>
+                  </div>
+                  <b>→</b>
+                  <div class="candidate-image edited-candidate">
+                    <span>Edited</span>
+                    <i class="candidate-object"></i>
+                    <i class="edit-focus"></i>
+                  </div>
+                </div>
+                <div class="candidate-specification">
+                  <span>Evidence-bound question–answer pairs</span>
+                  <div class="candidate-qa-row">
+                    <i>Q1</i><b>A1</b><i>Q2</i><b>A2</b><i>Q3</i><b>A3</b>
+                  </div>
+                  <small>Controlled visual change · fixed reference answer</small>
+                </div>
+                <div class="category-grid">
+                  <span><i>C</i>Context</span>
+                  <span><i>T</i>Texture</span>
+                  <span><i>A</i>Attribute</span>
+                  <span><i>L</i>Language</span>
+                  <span><i>#</i>Counting</span>
+                  <span><i>↔</i>Spatial</span>
+                </div>
+              </article>
+
+              <span class="pipeline-connector"><i></i></span>
+
+              <article class="pipeline-stage validation-stage">
+                <div class="pipeline-stage-heading">
+                  <span>04</span>
+                  <strong>Filter, Verify &amp; Test</strong>
+                </div>
+                <div class="filtering-gate">
+                  <div class="filtering-title">
+                    <span class="filter-spark">✦</span>
+                    <b>Filtering VLM</b>
+                  </div>
+                  <div class="filter-outcomes">
+                    <span class="discarded"><i>×</i>Solved · discard</span>
+                    <span class="retained"><i>✓</i>Failed · retain</span>
+                  </div>
+                </div>
+                <span class="stage-downlink"><i></i></span>
+                <div class="human-review-lane">
+                  <div class="human-review-heading">
+                    <span class="review-mark"><i></i><i></i><i></i></span>
+                    <div>
+                      <b>Human review</b>
+                      <small>Candidate quality control</small>
+                    </div>
+                  </div>
+                  <div class="review-steps">
+                    <span><i>01</i><b>Validate</b><small>Visual evidence</small></span>
+                    <span><i>02</i><b>Annotate</b><small>Q&amp;A and regions</small></span>
+                    <span><i>03</i><b>Repair</b><small>Localized edits</small></span>
+                  </div>
+                </div>
+                <span class="stage-downlink"><i></i></span>
+                <div class="stress-test-output">
+                  <div>
+                    <span>Verified output</span>
+                    <b>VLM Stress Test</b>
+                  </div>
+                  <span class="model-dots"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </article>
+            </div>
+
+            <div class="pipeline-diagram-footer" aria-hidden="true">
+              <span><i class="structured-dot"></i>Structured</span>
+              <span><i class="generated-dot"></i>Generated</span>
+              <span><i class="verified-dot"></i>Human-verified</span>
+              <a href="./assets/examples/sabre-data-generation-pipeline.pdf" target="_blank" rel="noreferrer">Full paper figure ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="component-section alt" id="annotation-tool">
+        <div class="component-copy">
+          <span class="component-index">02</span>
+          <h2>Annotation &amp; Verification</h2>
+          <p>Review paired images, mark visual regions, correct question–answer metadata, and save verified samples.</p>
+        </div>
+        <div class="component-media video-slot demo-video-frame">
+          <video
+            class="demo-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="./assets/annotation-poster-cropped.png"
+            aria-label="SABRE annotation tool demonstration"
+          >
+            <source src="./assets/annotation-demo-cropped.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+        </div>
+      </section>
+
+      <section class="component-section" id="entity-removal">
+        <div class="component-copy">
+          <span class="component-index">03</span>
+          <h2>Entity Removal</h2>
+          <p>Remove a localized entity while preserving the surrounding scene, structure, and visual consistency.</p>
+          <a class="component-demo-link" href="#repair-demo" data-repair-mode="remove">Try entity removal <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="component-media video-slot demo-video-frame">
+          <video
+            class="demo-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="./assets/entity-removal-poster-cropped.png"
+            aria-label="SABRE entity removal demonstration"
+          >
+            <source src="./assets/entity-removal-demo-cropped.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+        </div>
+      </section>
+
+      <section class="component-section alt" id="entity-swap">
+        <div class="component-copy">
+          <span class="component-index">04</span>
+          <h2>Entity Swap</h2>
+          <p>Replace a selected entity while retaining its location, scale, and relationship to the surrounding context.</p>
+          <a class="component-demo-link" href="#repair-demo" data-repair-mode="swap">Try entity swap <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="component-media video-slot demo-video-frame">
+          <video
+            class="demo-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="./assets/entity-swap-poster-cropped.png"
+            aria-label="SABRE entity swap demonstration"
+          >
+            <source src="./assets/entity-swap-demo-cropped.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+        </div>
+      </section>
+
+      <section class="performance-section" id="performance">
+        <div class="performance-heading">
+          <span class="performance-kicker">SABRE-Prior results</span>
+          <h2>Performance under stress</h2>
+          <p>Accuracy across four stress-test categories, with macro averages and 95% confidence intervals.</p>
+        </div>
+
+        <div class="performance-meta" aria-hidden="true">
+          <span>Accuracy (%)</span>
+          <span class="confidence-key"><i></i>95% confidence interval</span>
+          <span>Shared scale · 0–70</span>
+        </div>
+
+        <div class="table-wrap">
+          <table class="performance-table">
+            <caption class="sr-only">Accuracy of six vision-language models on SABRE-Prior Context, Texture, Attribute, and Language subsets, plus the macro average.</caption>
+            <thead>
+              <tr>
+                <th class="rank-column" scope="col">Rank</th>
+                <th class="model-column" scope="col">Model</th>
+                <th class="metric-heading context-heading" scope="col">Context</th>
+                <th class="metric-heading texture-heading" scope="col">Texture</th>
+                <th class="metric-heading attribute-heading" scope="col">Attribute</th>
+                <th class="metric-heading language-heading" scope="col">Language</th>
+                <th class="metric-heading macro-heading" scope="col">Macro avg.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="leader-row">
+                <td class="rank-cell"><span>01</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo"><img src="./assets/model-logos/anthropic.svg" alt=""></span>
+                    <span>Claude 4.6</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell is-best" style="--score:14.29%;--low:7.14%;--high:22.86%" title="10% · 95% CI: 5–16"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>10</strong></div></td>
+                <td class="metric-texture"><div class="score-cell" style="--score:57.14%;--low:42.86%;--high:71.43%" title="40% · 95% CI: 30–50"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>40</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell" style="--score:24.29%;--low:14.29%;--high:35.71%" title="17% · 95% CI: 10–25"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>17</strong></div></td>
+                <td class="metric-language"><div class="score-cell is-best" style="--score:82.86%;--low:68.57%;--high:97.14%" title="58% · 95% CI: 48–68"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>58</strong></div></td>
+                <td class="metric-macro"><div class="score-cell is-best" style="--score:44.71%;--low:38.86%;--high:50.29%" title="31.3% · 95% CI: 27.2–35.2"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>31.3</strong></div></td>
+              </tr>
+              <tr>
+                <td class="rank-cell"><span>02</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo kimi-logo"><img src="./assets/model-logos/kimi.svg" alt=""></span>
+                    <span>Kimi-k2.6</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell" style="--score:10%;--low:2.86%;--high:17.14%" title="7% · 95% CI: 2–12"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>7</strong></div></td>
+                <td class="metric-texture"><div class="score-cell is-best" style="--score:74.29%;--low:60%;--high:88.57%" title="52% · 95% CI: 42–62"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>52</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell" style="--score:24.29%;--low:14.29%;--high:35.71%" title="17% · 95% CI: 10–25"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>17</strong></div></td>
+                <td class="metric-language"><div class="score-cell" style="--score:24.29%;--low:14.29%;--high:35.71%" title="17% · 95% CI: 10–25"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>17</strong></div></td>
+                <td class="metric-macro"><div class="score-cell" style="--score:33.29%;--low:27.86%;--high:38.57%" title="23.3% · 95% CI: 19.5–27.0"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>23.3</strong></div></td>
+              </tr>
+              <tr>
+                <td class="rank-cell"><span>03</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo"><img src="./assets/model-logos/qwen.svg" alt=""></span>
+                    <span>Qwen 3.5</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell" style="--score:4.29%;--low:0%;--high:10%" title="3% · 95% CI: 0–7"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>3</strong></div></td>
+                <td class="metric-texture"><div class="score-cell" style="--score:65.71%;--low:51.43%;--high:80%" title="46% · 95% CI: 36–56"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>46</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell" style="--score:20%;--low:11.43%;--high:30%" title="14% · 95% CI: 8–21"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>14</strong></div></td>
+                <td class="metric-language"><div class="score-cell" style="--score:41.43%;--low:28.57%;--high:54.29%" title="29% · 95% CI: 20–38"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>29</strong></div></td>
+                <td class="metric-macro"><div class="score-cell" style="--score:32.86%;--low:27.43%;--high:38.29%" title="23.0% · 95% CI: 19.2–26.8"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>23.0</strong></div></td>
+              </tr>
+              <tr>
+                <td class="rank-cell"><span>04</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo"><img src="./assets/model-logos/gemini.svg" alt=""></span>
+                    <span>Gemini 3.5</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell score-zero" style="--score:0%;--low:0%;--high:0%" title="0% · 95% CI: 0–0"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>0</strong></div></td>
+                <td class="metric-texture"><div class="score-cell is-best" style="--score:74.29%;--low:60%;--high:88.57%" title="52% · 95% CI: 42–62"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>52</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell is-best" style="--score:37.14%;--low:25.71%;--high:50%" title="26% · 95% CI: 18–35"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>26</strong></div></td>
+                <td class="metric-language"><div class="score-cell" style="--score:15.71%;--low:7.14%;--high:25.71%" title="11% · 95% CI: 5–18"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>11</strong></div></td>
+                <td class="metric-macro"><div class="score-cell" style="--score:31.86%;--low:26.86%;--high:37.14%" title="22.3% · 95% CI: 18.8–26.0"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>22.3</strong></div></td>
+              </tr>
+              <tr>
+                <td class="rank-cell"><span>05</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo monochrome-logo"><img src="./assets/model-logos/openai.svg" alt=""></span>
+                    <span>GPT-5.4</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell" style="--score:1.43%;--low:0%;--high:4.29%" title="1% · 95% CI: 0–3"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>1</strong></div></td>
+                <td class="metric-texture"><div class="score-cell" style="--score:40%;--low:27.14%;--high:52.86%" title="28% · 95% CI: 19–37"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>28</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell" style="--score:28.57%;--low:18.57%;--high:40%" title="20% · 95% CI: 13–28"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>20</strong></div></td>
+                <td class="metric-language"><div class="score-cell" style="--score:32.86%;--low:21.43%;--high:44.29%" title="23% · 95% CI: 15–31"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>23</strong></div></td>
+                <td class="metric-macro"><div class="score-cell" style="--score:25.71%;--low:20.71%;--high:31.14%" title="18.0% · 95% CI: 14.5–21.8"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>18.0</strong></div></td>
+              </tr>
+              <tr>
+                <td class="rank-cell"><span>06</span></td>
+                <th scope="row">
+                  <span class="model-identity">
+                    <span class="model-logo monochrome-logo"><img src="./assets/model-logos/grok.svg" alt=""></span>
+                    <span>Grok-4.3</span>
+                  </span>
+                </th>
+                <td class="metric-context"><div class="score-cell" style="--score:5.71%;--low:1.43%;--high:11.43%" title="4% · 95% CI: 1–8"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>4</strong></div></td>
+                <td class="metric-texture"><div class="score-cell" style="--score:40%;--low:27.14%;--high:52.86%" title="28% · 95% CI: 19–37"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>28</strong></div></td>
+                <td class="metric-attribute"><div class="score-cell" style="--score:22.86%;--low:12.86%;--high:32.86%" title="16% · 95% CI: 9–23"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>16</strong></div></td>
+                <td class="metric-language"><div class="score-cell" style="--score:32.86%;--low:21.43%;--high:45.71%" title="23% · 95% CI: 15–32"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>23</strong></div></td>
+                <td class="metric-macro"><div class="score-cell" style="--score:25.43%;--low:20.29%;--high:30.71%" title="17.8% · 95% CI: 14.2–21.5"><span class="score-chart" aria-hidden="true"><i class="score-fill"></i><i class="score-ci"></i><i class="score-point"></i></span><strong>17.8</strong></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="performance-note">Higher is better. Bold colored values mark the best result in each category.</p>
+      </section>
+
+      <section class="repair-lab-section" id="repair-demo">
+        <div class="repair-lab-heading">
+          <div>
+            <span class="performance-kicker">Browser repair demo</span>
+            <h2>Try localized image repair.</h2>
+          </div>
+          <div class="repair-lab-promise">
+            <span class="local-only-badge"><i></i>Local image · your Gemini key</span>
+            <p>Your image is never uploaded to SABRE. It stays in this browser and is sent directly to Gemini only when you run an edit.</p>
+          </div>
+        </div>
+
+        <div class="repair-lab-shell">
+          <aside class="repair-controls" aria-label="Repair controls">
+            <div class="repair-control-group">
+              <span class="repair-step">01 · Source</span>
+              <label class="local-image-picker" for="repair-image-input">
+                <strong>Choose a local image</strong>
+                <small>JPEG, PNG, or WebP · processed in your browser</small>
+                <input id="repair-image-input" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+              </label>
+            </div>
+
+            <div class="repair-control-group">
+              <span class="repair-step">02 · Edit</span>
+              <div class="repair-mode-switch" role="group" aria-label="Repair mode">
+                <button class="active" type="button" data-mode="remove" aria-pressed="true">Remove entity</button>
+                <button type="button" data-mode="swap" aria-pressed="false">Swap entity</button>
+              </div>
+              <label class="repair-field">
+                <span id="repair-source-label">Entity to remove</span>
+                <input id="repair-source-entity" type="text" placeholder="e.g. red mug" autocomplete="off">
+              </label>
+              <label class="repair-field" id="repair-target-field" hidden>
+                <span>Target entity</span>
+                <input id="repair-target-entity" type="text" placeholder="e.g. blue stapler" autocomplete="off">
+              </label>
+              <label class="repair-field">
+                <span>Additional instruction <em>optional</em></span>
+                <textarea id="repair-extra-instruction" rows="3" placeholder="Preserve lighting, perspective, and everything outside the selected region."></textarea>
+              </label>
+            </div>
+
+            <div class="repair-control-group">
+              <span class="repair-step">03 · Gemini</span>
+              <div class="gemini-connection">
+                <div>
+                  <strong id="gemini-connection-label">Gemini not connected</strong>
+                  <small id="gemini-connection-note">Key is kept in memory for this tab only.</small>
+                </div>
+                <button id="gemini-connect-button" type="button">Connect Gemini</button>
+              </div>
+              <label class="repair-field model-field">
+                <span>Image model</span>
+                <input id="repair-model" type="text" value="gemini-3.1-flash-image" autocomplete="off" spellcheck="false">
+              </label>
+            </div>
+
+            <button id="repair-run-button" class="repair-run-button" type="button" disabled>
+              <span>Run localized edit</span><i aria-hidden="true">→</i>
+            </button>
+            <p class="repair-status" id="repair-demo-status" role="status">Choose an image, then draw a box around the entity.</p>
+          </aside>
+
+          <div class="repair-workspace">
+            <article class="repair-canvas-card">
+              <header><span>Before</span><small>Drag to mark the edit region</small></header>
+              <div class="repair-canvas-stage" id="repair-source-stage">
+                <canvas id="repair-source-canvas" width="960" height="640" aria-label="Source image selection canvas"></canvas>
+                <div class="canvas-placeholder" id="repair-source-placeholder">
+                  <span>＋</span>
+                  <strong>Choose an image to begin</strong>
+                  <small>Nothing is uploaded to SABRE</small>
+                </div>
+              </div>
+              <footer><span id="repair-selection-label">No region selected</span><button id="repair-clear-box" type="button" disabled>Clear box</button></footer>
+            </article>
+
+            <span class="repair-workspace-arrow" aria-hidden="true">→</span>
+
+            <article class="repair-canvas-card result-card">
+              <header><span>After</span><small>Gemini output · locally composited</small></header>
+              <div class="repair-canvas-stage">
+                <canvas id="repair-result-canvas" width="960" height="640" aria-label="Localized repair result"></canvas>
+                <div class="canvas-placeholder" id="repair-result-placeholder">
+                  <span>✦</span>
+                  <strong>Your repaired image appears here</strong>
+                  <small>Run an edit after selecting a region</small>
+                </div>
+              </div>
+              <footer><span id="repair-result-label">Waiting for an edit</span><button id="repair-download" type="button" disabled>Download result</button></footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>VLM-Bench</span>
+      <span>Open-source code is available now · Paper link pending arXiv release.</span>
+    </footer>
+
+    <dialog class="gemini-dialog" id="gemini-key-dialog" aria-labelledby="gemini-dialog-title">
+      <form method="dialog" class="gemini-dialog-card">
+        <div class="gemini-dialog-heading">
+          <div>
+            <span class="repair-step">Bring your own key</span>
+            <h3 id="gemini-dialog-title">Connect Gemini for this tab</h3>
+          </div>
+          <button class="dialog-close" value="cancel" aria-label="Close Gemini connection dialog">×</button>
+        </div>
+        <p>Your key is used only for direct requests from this browser to Google. SABRE does not store it, and refreshing this page clears it.</p>
+        <label class="repair-field key-field">
+          <span>Gemini API key</span>
+          <span class="key-input-wrap">
+            <input id="gemini-key-input" type="password" placeholder="Paste your Gemini API key" autocomplete="off" spellcheck="false" data-1p-ignore="true">
+            <button id="gemini-key-visibility" type="button" aria-pressed="false">Show</button>
+          </span>
+        </label>
+        <div class="gemini-dialog-actions">
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer">Get a key in Google AI Studio ↗</a>
+          <div>
+            <button id="gemini-disconnect-button" class="disconnect-button" type="button" hidden>Clear key</button>
+            <button id="gemini-use-button" class="gemini-use-button" type="button">Use for this session</button>
+          </div>
+        </div>
+        <small class="gemini-security-note">For a public research demo, use a temporary or quota-restricted key. Google recommends keeping production API keys server-side.</small>
+      </form>
+    </dialog>
+    <script src="./repair-demo.js?v=browser-repair-3"></script>
+  </body>
+</html>
