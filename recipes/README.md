@@ -19,7 +19,7 @@ A recipe should define:
 - screening probes and evaluator types
 - export format
 
-The pipeline core should not hard-code context-prior, activity-prior, surface,
-entity-modify, or language-prior assumptions. Those choices belong here.
+The pipeline core should not hard-code context-prior, surface, entity-modify,
+or language-prior assumptions. Those choices belong here.
 The failure-only retention rule is not recipe-specific: all recipes reject a
 candidate when the screening model answers every required probe correctly.
