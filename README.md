@@ -219,4 +219,10 @@ The arXiv identifier will be added immediately after release.
 
 ## License
 
-The code is released under the [Apache License 2.0](LICENSE).
+This repository is source-available under the
+[PolyForm Noncommercial License 1.0.0](LICENSE). Noncommercial research,
+education, and personal experimentation are permitted. Any commercial use
+requires separate written permission from the copyright holders.
+
+Because this license restricts commercial use, SABRE is source-available rather
+than OSI-approved open-source software.
