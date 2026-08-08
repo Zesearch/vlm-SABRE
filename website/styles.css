@@ -3617,3 +3617,469 @@ h3 {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Color theme control */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 58px;
+  height: 32px;
+  padding: 3px 6px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  font: inherit;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: -1;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--panel-strong);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  transform: translateX(26px);
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icon {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  font-size: 13px;
+  line-height: 1;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --panel: #ffffff;
+  --panel-strong: #e8edf2;
+  --line: #cbd5df;
+  --text: #17212b;
+  --muted: #5e6b77;
+  --soft: #354452;
+  --accent: #087f76;
+  --accent-2: #6356d8;
+  --repair: #d83b5c;
+  --success: #217a50;
+  --cyan: #078e83;
+}
+
+html[data-theme="light"] .theme-toggle::before {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(33, 46, 58, 0.16);
+  transform: translateX(0);
+}
+
+html[data-theme="light"] .site-header {
+  background: rgba(248, 250, 252, 0.9);
+  border-bottom-color: rgba(30, 47, 61, 0.11);
+  box-shadow: 0 10px 30px rgba(45, 61, 74, 0.05);
+}
+
+html[data-theme="light"] .mega-menu {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(30, 47, 61, 0.12);
+  box-shadow: 0 24px 70px rgba(45, 61, 74, 0.16);
+}
+
+html[data-theme="light"] .mega-label,
+html[data-theme="light"] .performance-meta,
+html[data-theme="light"] .performance-note,
+html[data-theme="light"] .pipeline-diagram-footer {
+  color: #657482;
+}
+
+html[data-theme="light"] .hero {
+  background:
+    radial-gradient(circle at 78% 44%, rgba(8, 127, 118, 0.1), transparent 29%),
+    radial-gradient(circle at 92% 70%, rgba(99, 86, 216, 0.1), transparent 25%),
+    linear-gradient(90deg, rgba(248, 250, 252, 0.98), rgba(244, 247, 249, 0.82)),
+    repeating-linear-gradient(0deg, rgba(29, 47, 61, 0.035) 0 1px, transparent 1px 110px),
+    repeating-linear-gradient(90deg, rgba(29, 47, 61, 0.03) 0 1px, transparent 1px 110px);
+}
+
+html[data-theme="light"] .button.primary {
+  color: #ffffff;
+  background: var(--text);
+}
+
+html[data-theme="light"] .button.secondary,
+html[data-theme="light"] .platform-button,
+html[data-theme="light"] .screening-list span,
+html[data-theme="light"] .review-checks span {
+  background: rgba(25, 45, 61, 0.045);
+}
+
+html[data-theme="light"] .stage-card,
+html[data-theme="light"] .sample-card {
+  border-color: rgba(30, 47, 61, 0.12);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 24px 70px rgba(49, 65, 78, 0.15);
+}
+
+html[data-theme="light"] .mini-image,
+html[data-theme="light"] .mark-image,
+html[data-theme="light"] .mock-photo {
+  border-color: rgba(30, 47, 61, 0.12);
+  background-color: #dce6ec;
+}
+
+html[data-theme="light"] .mini-image .surface {
+  background:
+    repeating-linear-gradient(90deg, rgba(30, 47, 61, 0.09) 0 1px, transparent 1px 24px),
+    rgba(30, 47, 61, 0.055);
+}
+
+html[data-theme="light"] .mark-question,
+html[data-theme="light"] .mark-score {
+  border-color: rgba(30, 47, 61, 0.17);
+}
+
+html[data-theme="light"] .preview-window {
+  box-shadow: 0 24px 80px rgba(45, 61, 74, 0.16);
+}
+
+html[data-theme="light"] .image-pane {
+  background: #edf1f4;
+}
+
+html[data-theme="light"] .sample-helix-section {
+  border-color: rgba(30, 47, 61, 0.1);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(8, 127, 118, 0.1), transparent 25%),
+    radial-gradient(circle at 42% 62%, rgba(99, 86, 216, 0.1), transparent 27%),
+    linear-gradient(180deg, #eef3f6, #f8fafb);
+}
+
+html[data-theme="light"] .sample-card img {
+  border-color: rgba(30, 47, 61, 0.1);
+}
+
+html[data-theme="light"] .paper-section {
+  border-bottom-color: rgba(30, 47, 61, 0.1);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(8, 127, 118, 0.07), transparent 25%),
+    linear-gradient(180deg, #ffffff, #f5f8fa);
+}
+
+html[data-theme="light"] .band {
+  background: #e9eef2;
+  border-block-color: rgba(30, 47, 61, 0.1);
+}
+
+html[data-theme="light"] .component-section,
+html[data-theme="light"] .performance-section {
+  border-bottom-color: rgba(30, 47, 61, 0.1);
+  background:
+    radial-gradient(circle at 78% 42%, rgba(8, 127, 118, 0.075), transparent 27%),
+    #f8fafb;
+}
+
+html[data-theme="light"] .component-section.alt {
+  background:
+    radial-gradient(circle at 22% 48%, rgba(99, 86, 216, 0.075), transparent 29%),
+    #f0f4f7;
+}
+
+html[data-theme="light"] .component-media {
+  border-color: rgba(30, 47, 61, 0.14);
+  background:
+    linear-gradient(135deg, rgba(8, 127, 118, 0.08), transparent 42%),
+    linear-gradient(315deg, rgba(99, 86, 216, 0.08), transparent 46%),
+    #eef3f6;
+  box-shadow: 0 28px 90px rgba(45, 61, 74, 0.16);
+}
+
+html[data-theme="light"] .component-media::before {
+  border-color: rgba(30, 47, 61, 0.16);
+}
+
+html[data-theme="light"] .pipeline-diagram {
+  background:
+    radial-gradient(circle at 7% 7%, rgba(8, 127, 118, 0.1), transparent 24%),
+    radial-gradient(circle at 92% 92%, rgba(99, 86, 216, 0.1), transparent 27%),
+    linear-gradient(rgba(30, 47, 61, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 47, 61, 0.045) 1px, transparent 1px),
+    #edf2f5;
+  background-size: auto, auto, 5.5cqw 5.5cqw, 5.5cqw 5.5cqw, auto;
+}
+
+html[data-theme="light"] .pipeline-diagram::after {
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.5), transparent 23% 75%, rgba(255, 255, 255, 0.25));
+}
+
+html[data-theme="light"] .pipeline-diagram-header {
+  border-bottom-color: rgba(30, 47, 61, 0.12);
+}
+
+html[data-theme="light"] .pipeline-mode {
+  color: #5145b7;
+  border-color: rgba(99, 86, 216, 0.28);
+  background: rgba(99, 86, 216, 0.08);
+}
+
+html[data-theme="light"] .pipeline-stage {
+  border-color: rgba(30, 47, 61, 0.12);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 248, 0.96));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.9), 0 10px 28px rgba(45, 61, 74, 0.1);
+}
+
+html[data-theme="light"] .primer-document,
+html[data-theme="light"] .construction-branches > div,
+html[data-theme="light"] .human-review-lane,
+html[data-theme="light"] .review-steps > span {
+  border-color: rgba(30, 47, 61, 0.11);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+html[data-theme="light"] .primer-document::after {
+  border-color: transparent transparent rgba(30, 47, 61, 0.11) transparent;
+}
+
+html[data-theme="light"] .primer-contract span,
+html[data-theme="light"] .primer-definition > div > b,
+html[data-theme="light"] .candidate-specification > span,
+html[data-theme="light"] .category-grid span,
+html[data-theme="light"] .stress-test-output span:first-child {
+  color: #40505d;
+}
+
+html[data-theme="light"] .primer-definition > div,
+html[data-theme="light"] .candidate-specification {
+  background-color: rgba(255, 255, 255, 0.48);
+}
+
+html[data-theme="light"] .branch-preview {
+  border-color: rgba(30, 47, 61, 0.1);
+  background: rgba(220, 228, 234, 0.62);
+}
+
+html[data-theme="light"] .filter-outcomes .discarded {
+  color: #9d3349;
+}
+
+html[data-theme="light"] .filter-outcomes .retained {
+  color: #256b48;
+}
+
+html[data-theme="light"] .stress-test-output,
+html[data-theme="light"] .filtering-gate {
+  border-color: rgba(30, 47, 61, 0.11);
+}
+
+html[data-theme="light"] .model-dots i {
+  border-color: rgba(30, 47, 61, 0.24);
+  background: rgba(30, 47, 61, 0.08);
+}
+
+html[data-theme="light"] .pipeline-diagram-footer a {
+  color: #566675;
+}
+
+html[data-theme="light"] .table-wrap {
+  border-color: rgba(77, 99, 117, 0.2);
+  background:
+    linear-gradient(135deg, rgba(8, 127, 118, 0.035), transparent 28%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 30px 100px rgba(45, 61, 74, 0.14);
+}
+
+html[data-theme="light"] .performance-table {
+  color: #445361;
+}
+
+html[data-theme="light"] .performance-table th,
+html[data-theme="light"] .performance-table td {
+  border-bottom-color: rgba(77, 99, 117, 0.13);
+}
+
+html[data-theme="light"] .performance-table thead th {
+  color: #5f6e7a;
+  background: rgba(29, 47, 61, 0.035);
+}
+
+html[data-theme="light"] .performance-table tbody tr:nth-child(even) {
+  background: rgba(29, 47, 61, 0.022);
+}
+
+html[data-theme="light"] .performance-table tbody tr:hover {
+  background: rgba(8, 127, 118, 0.05);
+}
+
+html[data-theme="light"] .performance-table tbody tr.leader-row {
+  background: linear-gradient(90deg, rgba(8, 127, 118, 0.06), rgba(99, 86, 216, 0.025));
+}
+
+html[data-theme="light"] .rank-cell span {
+  color: #61717f;
+  border-color: rgba(77, 99, 117, 0.2);
+}
+
+html[data-theme="light"] .performance-table tbody th {
+  color: #1d2933;
+}
+
+html[data-theme="light"] .monochrome-logo img {
+  filter: none;
+}
+
+html[data-theme="light"] .score-chart {
+  background: rgba(77, 99, 117, 0.13);
+}
+
+html[data-theme="light"] .score-fill {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--metric-color) 68%, #e7edf1), var(--metric-color));
+}
+
+html[data-theme="light"] .score-point {
+  border-color: rgba(255, 255, 255, 0.88);
+}
+
+html[data-theme="light"] .score-zero .score-point {
+  background: #ffffff;
+}
+
+html[data-theme="light"] .score-cell strong {
+  color: #344351;
+}
+
+html[data-theme="light"] .repair-lab-section {
+  border-bottom-color: rgba(30, 47, 61, 0.1);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(8, 127, 118, 0.085), transparent 27%),
+    radial-gradient(circle at 8% 78%, rgba(99, 86, 216, 0.08), transparent 29%),
+    #f5f8fa;
+}
+
+html[data-theme="light"] .local-only-badge {
+  color: #236c4a;
+}
+
+html[data-theme="light"] .repair-lab-shell {
+  border-color: rgba(30, 47, 61, 0.13);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 34px 110px rgba(45, 61, 74, 0.16);
+}
+
+html[data-theme="light"] .repair-controls {
+  border-color: rgba(30, 47, 61, 0.11);
+  background: linear-gradient(180deg, rgba(246, 249, 251, 0.98), rgba(233, 239, 244, 0.98));
+}
+
+html[data-theme="light"] .repair-control-group {
+  border-bottom-color: rgba(30, 47, 61, 0.11);
+}
+
+html[data-theme="light"] .repair-mode-switch {
+  border-color: rgba(30, 47, 61, 0.12);
+  background: rgba(30, 47, 61, 0.055);
+}
+
+html[data-theme="light"] .repair-field input,
+html[data-theme="light"] .repair-field textarea {
+  color: var(--text);
+  border-color: rgba(30, 47, 61, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+html[data-theme="light"] .gemini-connection button,
+html[data-theme="light"] .repair-canvas-card footer button {
+  border-color: rgba(30, 47, 61, 0.15);
+  background: rgba(30, 47, 61, 0.045);
+}
+
+html[data-theme="light"] .repair-workspace {
+  background:
+    linear-gradient(rgba(30, 47, 61, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 47, 61, 0.035) 1px, transparent 1px),
+    #edf2f5;
+  background-size: 42px 42px;
+}
+
+html[data-theme="light"] .repair-canvas-card {
+  border-color: rgba(30, 47, 61, 0.13);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 20px 54px rgba(45, 61, 74, 0.13);
+}
+
+html[data-theme="light"] .repair-canvas-card > header,
+html[data-theme="light"] .repair-canvas-card > footer {
+  border-color: rgba(30, 47, 61, 0.1);
+}
+
+html[data-theme="light"] .repair-canvas-stage {
+  background: #e5ebef;
+}
+
+html[data-theme="light"] .gemini-dialog {
+  color: var(--text);
+  border-color: rgba(30, 47, 61, 0.15);
+  background: #ffffff;
+  box-shadow: 0 36px 120px rgba(35, 48, 59, 0.28);
+}
+
+html[data-theme="light"] .gemini-dialog::backdrop {
+  background: rgba(31, 43, 53, 0.5);
+}
+
+html[data-theme="light"] .disconnect-button {
+  border-color: rgba(30, 47, 61, 0.16) !important;
+}
+
+html[data-theme="light"] .gemini-security-note,
+html[data-theme="light"] .site-footer {
+  color: #647380;
+  border-color: rgba(30, 47, 61, 0.1);
+}
+
+@media (max-width: 980px) {
+  html[data-theme="light"] .repair-controls {
+    border-bottom-color: rgba(30, 47, 61, 0.11);
+  }
+
+  html[data-theme="light"] .performance-table .rank-column,
+  html[data-theme="light"] .performance-table .rank-cell,
+  html[data-theme="light"] .performance-table .model-column,
+  html[data-theme="light"] .performance-table tbody th {
+    background: #ffffff;
+  }
+
+  html[data-theme="light"] .performance-table .model-column,
+  html[data-theme="light"] .performance-table tbody th {
+    box-shadow: 12px 0 20px rgba(45, 61, 74, 0.09);
+  }
+
+  html[data-theme="light"] .performance-table thead .rank-column,
+  html[data-theme="light"] .performance-table thead .model-column {
+    background: #f1f5f7;
+  }
+}
+
+@media (max-width: 560px) {
+  .theme-toggle {
+    width: 54px;
+  }
+}

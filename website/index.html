@@ -4,17 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'none'">
-    <title>Meet VLM-Bench</title>
-    <link rel="stylesheet" href="./styles.css?v=browser-repair-2">
+    <meta id="theme-color" name="theme-color" content="#080a0d">
+    <title>SABRE</title>
+    <script src="./theme.js?v=light-mode-1"></script>
+    <link rel="stylesheet" href="./styles.css?v=light-mode-1">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#meet" aria-label="Meet VLM-Bench home">
+      <a class="brand" href="#meet" aria-label="SABRE home">
         <span class="brand-mark"></span>
-        <span>VLM-Bench</span>
+        <span>SABRE</span>
       </a>
       <nav class="top-nav" aria-label="Primary navigation">
-        <a href="#meet">Meet VLM-Bench</a>
+        <a href="#meet">Meet SABRE</a>
         <div class="nav-menu">
           <button class="nav-menu-button" type="button" aria-haspopup="true" aria-expanded="false">
             Data Platform
@@ -32,6 +34,10 @@
             </div>
           </div>
         </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Switch to light mode">
+          <span class="theme-toggle-icon" aria-hidden="true">☀</span>
+          <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+        </button>
         <a href="https://github.com/Zesearch/vlm-SABRE" target="_blank" rel="noreferrer">Code</a>
         <a href="https://arxiv.org/" target="_blank" rel="noreferrer">Paper</a>
       </nav>
@@ -48,12 +54,12 @@
             VLMs can answer correctly when we test visual evidence.
           </p>
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="#platform">Open Data Platform</a>
+            <a class="button primary" href="#repair-demo">Try the Demo</a>
             <a class="button secondary" href="#performance">View Performance</a>
           </div>
         </div>
 
-        <div class="hero-visual" aria-label="VLM-Bench platform preview">
+        <div class="hero-visual" aria-label="SABRE platform preview">
           <div class="pipeline-visual">
             <div class="pipeline-orbit" aria-hidden="true"></div>
             <div class="stage-card stage-generate">
@@ -134,9 +140,13 @@
       <section class="paper-section" id="paper">
         <div class="paper-inner">
           <h2>SABRE: Scalable and Automated Benchmarking of VLMs under Stress</h2>
-          <p class="paper-authors">Zixuan Lan · Luzhe Sun · Matthew R. Walter · Jiawei Zhou</p>
+          <p class="paper-authors">
+            Zixuan Lan<sup>1*</sup> · Luzhe Sun<sup>2*</sup> · Matthew R. Walter<sup>2</sup> · Jiawei Zhou<sup>3</sup>
+          </p>
           <p class="paper-affiliations">
-            University of Chicago · Toyota Technological Institute at Chicago · Stony Brook University
+            University of Chicago<sup>1</sup> ·
+            Toyota Technological Institute at Chicago<sup>2</sup> ·
+            Stony Brook University<sup>3</sup>
           </p>
           <h3>Abstract</h3>
           <p class="paper-abstract">
@@ -665,7 +675,7 @@
     </main>
 
     <footer class="site-footer">
-      <span>VLM-Bench</span>
+      <span>SABRE</span>
       <span>Code available for noncommercial research · Paper link pending arXiv release.</span>
     </footer>
 
