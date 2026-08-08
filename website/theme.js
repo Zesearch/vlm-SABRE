@@ -1,7 +1,6 @@
 (() => {
   const root = document.documentElement;
   const storageKey = "sabre-color-theme";
-  const systemTheme = window.matchMedia("(prefers-color-scheme: light)");
 
   const readStoredTheme = () => {
     try {
@@ -19,8 +18,6 @@
       // The theme still works when storage is unavailable.
     }
   };
-
-  const systemPreference = () => (systemTheme.matches ? "light" : "dark");
 
   const updateControls = (theme) => {
     const toggle = document.getElementById("theme-toggle");
@@ -43,7 +40,7 @@
     updateControls(theme);
   };
 
-  applyTheme(readStoredTheme() || systemPreference());
+  applyTheme(readStoredTheme() || "dark");
 
   const initializeToggle = () => {
     const toggle = document.getElementById("theme-toggle");
@@ -60,10 +57,4 @@
   } else {
     initializeToggle();
   }
-
-  systemTheme.addEventListener("change", () => {
-    if (!readStoredTheme()) {
-      applyTheme(systemPreference());
-    }
-  });
 })();
