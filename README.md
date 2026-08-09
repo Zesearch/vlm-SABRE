@@ -1,7 +1,7 @@
 # SABRE: Scalable and Automated Benchmarking of VLMs under Stress
 
 <p align="center">
-  <strong>Zixuan Lan<sup>1</sup> · Luzhe Sun<sup>2</sup> · Matthew R. Walter<sup>2</sup> · Jiawei Zhou<sup>3</sup></strong>
+  <strong>Zixuan Lan<sup>1*</sup> · Luzhe Sun<sup>2*</sup> · Matthew R. Walter<sup>2</sup> · Jiawei Zhou<sup>3</sup></strong>
 </p>
 
 <p align="center">
