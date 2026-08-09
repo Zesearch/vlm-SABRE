@@ -88,8 +88,9 @@ API-key mode and does not reuse a local Codex Desktop or ChatGPT login. The `bui
 the same key for the existing GPT structured-output stage.
 
 Use `--non-interactive` for automation. An incomplete task then writes a compilation report and exits
-with status code 2. Use `--template context_prior` to select a template explicitly; otherwise the
-registry only loads a detailed template when its keywords match the task.
+with status code 2. Use `--template context` to select the paper-aligned Context template
+explicitly; otherwise the registry only loads a detailed template when its keywords match the task.
+The pre-release ID `context_prior` remains accepted as a compatibility alias.
 
 To generate designs from an already compiled task without calling the agent again:
 

@@ -16,13 +16,14 @@ class TaskTemplate:
 
 
 TEMPLATE_METADATA = {
-    "context_prior": {
-        "title": "Context-prior paired edit",
+    "context": {
+        "title": "Context paired edit",
         "description": (
             "Replace one context-expected source object with a visually plausible but "
             "context-unexpected target and construct four presence probes."
         ),
         "keywords": (
+            "context",
             "context prior",
             "context-prior",
             "unexpected object",
@@ -31,6 +32,10 @@ TEMPLATE_METADATA = {
             "target object",
         ),
     },
+}
+
+TEMPLATE_ALIASES = {
+    "context_prior": "context",
 }
 
 
@@ -61,8 +66,13 @@ class TemplateRegistry:
         return templates
 
     def get(self, template_id: str) -> TaskTemplate:
+        canonical_id = (
+            template_id
+            if template_id in self._templates
+            else TEMPLATE_ALIASES.get(template_id, template_id)
+        )
         try:
-            return self._templates[template_id]
+            return self._templates[canonical_id]
         except KeyError as exc:
             available = ", ".join(sorted(self._templates))
             raise ValueError(
@@ -76,7 +86,14 @@ class TemplateRegistry:
         limit: int = 2,
     ) -> list[TaskTemplate]:
         if requested:
-            return [self.get(template_id) for template_id in dict.fromkeys(requested)]
+            selected: list[TaskTemplate] = []
+            seen: set[str] = set()
+            for template_id in requested:
+                template = self.get(template_id)
+                if template.template_id not in seen:
+                    selected.append(template)
+                    seen.add(template.template_id)
+            return selected
         lowered = markdown.lower()
         scored = [
             (

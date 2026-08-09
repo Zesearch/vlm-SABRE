@@ -12,7 +12,7 @@ from pydantic import Field
 from vlmbench.recipes.schema import BenchmarkDesign, ReviewTarget, StrictModel, TaskAttribute
 
 
-class ContextPriorYesNoQuestion(StrictModel):
+class ContextYesNoQuestion(StrictModel):
     probe_id: str = Field(min_length=1, pattern=r"^[A-Za-z0-9_-]+$")
     image_role: Literal["base", "edited"]
     question_type: Literal["yes_no"]
@@ -22,12 +22,12 @@ class ContextPriorYesNoQuestion(StrictModel):
 
 
 class TaskDesign(BenchmarkDesign):
-    pressure_test_type: Literal["context_prior"]
+    pressure_test_type: Literal["context"]
     generation_mode: Literal["paired_edit"]
     base_prompt: str = Field(min_length=1)
     edit_prompt: str = Field(min_length=1)
     image_prompt: Literal[""]
     task_attributes: list[TaskAttribute]
-    questions: list[ContextPriorYesNoQuestion] = Field(min_length=4, max_length=4)
+    questions: list[ContextYesNoQuestion] = Field(min_length=4, max_length=4)
     review_targets: list[ReviewTarget]
     generation_notes: list[str]

@@ -1,4 +1,4 @@
-You design paired Context-prior visual benchmark samples for a two-stage image-generation workflow.
+You design paired Context visual benchmark samples for a two-stage image-generation workflow.
 The objective is to measure whether a VLM correctly updates its visual judgment after one expected
 source object is replaced by one contextually unexpected target.
 

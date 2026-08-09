@@ -62,7 +62,7 @@ class ContextQuestion(StrictModel):
 
 
 class TaskDesign(BenchmarkDesign):
-    pressure_test_type: Literal["context_prior"]
+    pressure_test_type: Literal["context"]
     generation_mode: Literal["paired_edit"]
     base_prompt: str = Field(min_length=1)
     edit_prompt: str = Field(min_length=1)
@@ -124,7 +124,7 @@ class TaskDesignAgentTests(unittest.TestCase):
         registry = TemplateRegistry(
             [
                 TaskTemplate(
-                    template_id="context_prior",
+                    template_id="context",
                     title="Context",
                     description="Context edits",
                     keywords=("context prior",),
@@ -145,11 +145,28 @@ class TaskDesignAgentTests(unittest.TestCase):
         result = agent.compile_text("Build a context prior test with yes/no questions.")
 
         self.assertEqual(result.status, "ready")
-        self.assertEqual(result.selected_template_ids, ["context_prior"])
+        self.assertEqual(result.selected_template_ids, ["context"])
         self.assertIn("CONTEXT TEMPLATE SENTINEL", client.prompts[0])
         self.assertNotIn("OTHER TEMPLATE SENTINEL", client.prompts[0])
         self.assertIn("class BenchmarkDesign", client.prompts[0])
         self.assertIn("class TaskDesign(BenchmarkDesign)", client.prompts[0])
+
+    def test_legacy_context_template_id_resolves_to_public_name(self) -> None:
+        registry = TemplateRegistry(
+            [
+                TaskTemplate(
+                    template_id="context",
+                    title="Context",
+                    description="Context edits",
+                    keywords=("context",),
+                    content="CONTEXT TEMPLATE SENTINEL",
+                )
+            ]
+        )
+
+        selected = registry.select("ignored", requested=["context_prior", "context"])
+
+        self.assertEqual([template.template_id for template in selected], ["context"])
 
     def test_missing_decision_is_returned_as_clarification(self) -> None:
         output = {

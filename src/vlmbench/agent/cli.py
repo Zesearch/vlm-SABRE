@@ -29,7 +29,12 @@ def add_compile_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--base-url", help="Override settings.json OpenAI base URL.")
     parser.add_argument("--agent-model", help="Override settings.json Codex model.")
     parser.add_argument("--reasoning-effort", help="Override settings.json reasoning effort.")
-    parser.add_argument("--template", action="append", dest="template_ids")
+    parser.add_argument(
+        "--template",
+        action="append",
+        dest="template_ids",
+        help="Paper-aligned template ID, for example 'context'.",
+    )
     parser.add_argument("--non-interactive", action="store_true")
     parser.add_argument(
         "--dry-run",

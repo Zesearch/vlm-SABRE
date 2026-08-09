@@ -19,7 +19,17 @@ A recipe should define:
 - screening probes and evaluator types
 - export format
 
-The pipeline core should not hard-code context-prior, surface, entity-modify,
-or language-prior assumptions. Those choices belong here.
+The public SABRE-Prior recipe names match the paper:
+
+- [`context`](context/)
+- [`texture`](texture/)
+- [`attribute`](attribute/)
+- [`language`](language/)
+
+New user-facing artifacts should use these paper-aligned names. Compatibility
+with historical internal identifiers is handled inside the pipeline rather than
+exposed as a second public naming scheme. The pipeline core should not hard-code
+assumptions from any one recipe.
+
 The failure-only retention rule is not recipe-specific: all recipes reject a
 candidate when the screening model answers every required probe correctly.
