@@ -11,9 +11,13 @@
 </p>
 
 <p align="center">
-  <a href="https://zesearch.github.io/vlm-SABRE/">Project Page</a> ·
-  <a href="https://github.com/Zesearch/vlm-SABRE">Code</a> ·
-  <strong>arXiv: coming soon</strong>
+  <a href="https://zesearch.github.io/vlm-SABRE/">
+    <img src="https://img.shields.io/badge/Project-Page-14b8a6?logo=githubpages&amp;logoColor=white" alt="Project Page">
+  </a>
+  <a href="https://huggingface.co/datasets/Zesearch/SABRE-Prior">
+    <img src="https://img.shields.io/badge/Hugging%20Face-SABRE--Prior-FFD21E?logo=huggingface&amp;logoColor=black" alt="SABRE-Prior on Hugging Face">
+  </a>
+  <img src="https://img.shields.io/badge/arXiv-coming%20soon-B31B1B?logo=arxiv&amp;logoColor=white" alt="arXiv coming soon">
 </p>
 
 ## Abstract
