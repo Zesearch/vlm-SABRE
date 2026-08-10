@@ -22,5 +22,5 @@ Then visit `http://localhost:9000`.
 ## Release Notes
 
 The Code link points to the official repository at
-`https://github.com/Zesearch/vlm-SABRE`. Replace the Paper placeholder when the
-arXiv URL is final.
+`https://github.com/Zesearch/vlm-SABRE`, and the Paper link points to
+`https://arxiv.org/abs/2608.07435`.

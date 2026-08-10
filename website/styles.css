@@ -1188,10 +1188,20 @@ h3 {
 
 .paper-affiliations {
   max-width: 820px;
-  margin: 0 auto 76px;
+  margin: 0 auto 28px;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.55;
+}
+
+.paper-actions {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 64px;
+}
+
+.paper-actions .component-demo-link {
+  margin-top: 0;
 }
 
 .paper-inner h3 {

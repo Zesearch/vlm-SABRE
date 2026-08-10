@@ -17,7 +17,9 @@
   <a href="https://huggingface.co/datasets/Zesearch/SABRE-Prior">
     <img src="https://img.shields.io/badge/Hugging%20Face-SABRE--Prior-FFD21E?logo=huggingface&amp;logoColor=black" alt="SABRE-Prior on Hugging Face">
   </a>
-  <img src="https://img.shields.io/badge/arXiv-coming%20soon-B31B1B?logo=arxiv&amp;logoColor=white" alt="arXiv coming soon">
+  <a href="https://arxiv.org/abs/2608.07435">
+    <img src="https://img.shields.io/badge/arXiv-2608.07435-B31B1B?logo=arxiv&amp;logoColor=white" alt="arXiv:2608.07435">
+  </a>
 </p>
 
 ## Abstract
@@ -205,19 +207,23 @@ are intentionally excluded from this repository.
 
 - [x] SABRE pipeline and human-review platform
 - [x] Project website source and browser repair demo
-- [ ] arXiv paper link - coming soon
+- [x] [arXiv paper](https://arxiv.org/abs/2608.07435)
 - [ ] SABRE-Prior benchmark data - released separately from the code repository
 
 ## Citation
 
-The arXiv identifier will be added immediately after release.
+If you use SABRE or SABRE-Prior, please cite our [paper](https://arxiv.org/abs/2608.07435):
 
 ```bibtex
 @article{lan2026sabre,
-  title   = {SABRE: Scalable and Automated Benchmarking of VLMs under Stress},
-  author  = {Lan, Zixuan and Sun, Luzhe and Walter, Matthew R. and Zhou, Jiawei},
-  journal = {arXiv preprint},
-  year    = {2026}
+  title         = {SABRE: Scalable and Automated Benchmarking of VLMs under Stress},
+  author        = {Lan, Zixuan and Sun, Luzhe and Walter, Matthew R. and Zhou, Jiawei},
+  journal       = {arXiv preprint arXiv:2608.07435},
+  year          = {2026},
+  eprint        = {2608.07435},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2608.07435}
 }
 ```
 
