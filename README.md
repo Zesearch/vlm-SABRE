@@ -208,7 +208,7 @@ are intentionally excluded from this repository.
 - [x] SABRE pipeline and human-review platform
 - [x] Project website source and browser repair demo
 - [x] [arXiv paper](https://arxiv.org/abs/2608.07435)
-- [ ] SABRE-Prior benchmark data - released separately from the code repository
+- [x] [SABRE-Prior benchmark data](https://huggingface.co/datasets/Zesearch/SABRE-Prior)
 
 ## Citation
 
